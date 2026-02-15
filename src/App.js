@@ -7,7 +7,6 @@ export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const fullText = "Hi, I'm Prashant";
 
@@ -29,7 +28,7 @@ export default function Portfolio() {
         timer = setTimeout(() => setIsDeleting(true), 2000);
       } else if (isDeleting && typedText === '') {
         setIsDeleting(false);
-        setLoopNum(prevLoopNum => prevLoopNum + 1); // ✅ FIXED
+        // Removed loopNum - it wasn't being used
       } else {
         const shouldDelete = isDeleting;
         const updatedText = shouldDelete
@@ -44,7 +43,7 @@ export default function Portfolio() {
     timer = setTimeout(handleTyping, isDeleting ? 50 : 100);
     
     return () => clearTimeout(timer);
-  }, [typedText, isDeleting, fullText]); // ✅ Added fullText to dependencies
+  }, [typedText, isDeleting, fullText]);
 
   const projects = [
     {

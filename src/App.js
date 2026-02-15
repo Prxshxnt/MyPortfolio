@@ -29,7 +29,7 @@ export default function Portfolio() {
         timer = setTimeout(() => setIsDeleting(true), 2000);
       } else if (isDeleting && typedText === '') {
         setIsDeleting(false);
-        setLoopNum(loopNum + 1);
+        setLoopNum(prevLoopNum => prevLoopNum + 1); // ✅ FIXED
       } else {
         const shouldDelete = isDeleting;
         const updatedText = shouldDelete
@@ -44,7 +44,7 @@ export default function Portfolio() {
     timer = setTimeout(handleTyping, isDeleting ? 50 : 100);
     
     return () => clearTimeout(timer);
-  }, [typedText, isDeleting]);
+  }, [typedText, isDeleting, fullText]); // ✅ Added fullText to dependencies
 
   const projects = [
     {
@@ -422,7 +422,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Skills Section - UPDATED RESPONSIVE VERSION */}
+      {/* Skills Section */}
       <section id="skills" className="py-16 md:py-20 lg:py-24 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 sm:gap-4 mb-10 md:mb-14">
@@ -543,7 +543,7 @@ export default function Portfolio() {
               }`}>
                 <div className="flex items-start justify-between mb-6">
                   <Code className="text-blue-500" size={32} />
-                  <a href={project.link} className={`p-2 rounded-lg transition-colors ${
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className={`p-2 rounded-lg transition-colors ${
                     isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-100'
                   }`}>
                     <ExternalLink size={24} />
